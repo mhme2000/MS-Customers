@@ -5,14 +5,9 @@ using Customers.Domain.Interfaces;
 
 namespace Customers.Application.UseCases.Customers;
 
-public class CreateCustomerUseCase : ICreateCustomerUseCase
+public class CreateCustomerUseCase(ICustomersRepository customersRepository) : ICreateCustomerUseCase
 {
-    private readonly ICustomersRepository _customersRepository;
-
-    public CreateCustomerUseCase(ICustomersRepository customersRepository)
-    {
-        _customersRepository = customersRepository;
-    }
+    private readonly ICustomersRepository _customersRepository = customersRepository;
 
     public Guid Execute(CustomerDTO dto)
     {

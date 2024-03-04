@@ -3,8 +3,7 @@ using Customers.Domain.Entities;
 
 namespace Customers.Infrastructure.Contexts;
 
-public class CustomersContext : DbContext
+public class CustomersContext(DbContextOptions<CustomersContext> options) : DbContext(options)
 {
-    public CustomersContext(DbContextOptions<CustomersContext> options): base(options){}
-    public DbSet<Customer>? Customer { get; set; }
+    public DbSet<Customer> Customer { get; set; } = null!;
 }

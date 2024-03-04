@@ -4,18 +4,14 @@ using Customers.Domain.Interfaces;
 
 namespace Customers.Application.UseCases.Customers;
 
-public class GetCustomerByDocumentUseCase : IGetCustomerByDocumentUseCase
+public class GetCustomerByDocumentUseCase(ICustomersRepository customersRepository) : IGetCustomerByDocumentUseCase
 {
-    private readonly ICustomersRepository _customersRepository;
+    private readonly ICustomersRepository _customersRepository = customersRepository;
 
-    public GetCustomerByDocumentUseCase(ICustomersRepository customersRepository)
-    {
-        _customersRepository = customersRepository;
-    }
-
-    public CustomerDTO Execute(string document)
+    public CustomerDTO? Execute(string document)
     {
         var customer = _customersRepository.GetByDocument(document);
+        if (customer == null) return null;
         return new CustomerDTO
         {
             Document = customer.Document,

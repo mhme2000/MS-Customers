@@ -1,15 +1,8 @@
 ﻿namespace Customers.Domain.Entities;
 
-public class Customer : Entity
+public class Customer(string document, string email, string name) : Entity
 {
-    public Customer(string document, string email, string name)
-    {
-        Email = email;
-        Document = document;
-        Name = name;
-    }
-
-    public string Email { get; private set; }
-    public string Document { get; private set; }
-    public string Name { get; private set; }
+    public string Email { get; private set; } = email;
+    public string Document { get; private set; } = document;
+    public string Name { get; private set; } = name;
 }

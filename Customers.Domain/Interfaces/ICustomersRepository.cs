@@ -5,5 +5,5 @@ namespace Customers.Domain.Interfaces;
 public interface ICustomersRepository
 {
     Guid Create(Customer customer);
-    Customer GetByDocument(string document);
+    Customer? GetByDocument(string document);
 }

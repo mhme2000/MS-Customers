@@ -2,6 +2,6 @@
 
 namespace Customers.Application.Interfaces.Customers;
 
-public interface IGetCustomerByDocumentUseCase : IUseCase<CustomerDTO, string>
+public interface IGetCustomerByDocumentUseCase : IUseCase<CustomerDTO?, string>
 {
 }
