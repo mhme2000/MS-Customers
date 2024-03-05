@@ -20,6 +20,11 @@ public class CustomersRepository(CustomersContext context) : ICustomersRepositor
         return _context.Customer.FirstOrDefault(t => t.Document == document);
     }
 
+    public IEnumerable<Customer> GetAll()
+    {
+        return _context.Customer.AsEnumerable();
+    }
+
     public void Update(Customer customer)
     {
         _context.Customer.Update(customer);

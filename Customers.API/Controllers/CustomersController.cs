@@ -7,11 +7,19 @@ namespace Customers.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase, IDeleteCustomerUseCase deleteCustomerUseCase) : ControllerBase
+public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase, IGetCustomersUseCase getCustomersUseCase, IDeleteCustomerUseCase deleteCustomerUseCase) : ControllerBase
 {
     private readonly ICreateCustomerUseCase _createCustomerUseCase = createCustomerUseCase;
     private readonly IGetCustomerByDocumentUseCase _getCustomerByDocumentUseCase = getCustomerByDocumentUseCase;
+    private readonly IGetCustomersUseCase _getCustomersUseCase = getCustomersUseCase;
     private readonly IDeleteCustomerUseCase _deleteCustomerUseCase = deleteCustomerUseCase;
+
+    [HttpGet]
+    public IActionResult GetCustomers()
+    {
+        var customers = _getCustomersUseCase.Execute(new object { });
+        return Ok(customers);
+    }
 
     [HttpGet]
     public IActionResult GetCustomer([FromQuery] string document)
