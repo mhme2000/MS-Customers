@@ -6,4 +6,5 @@ public interface ICustomersRepository
 {
     Guid Create(Customer customer);
     Customer? GetByDocument(string document);
+    void Update(Customer customer);
 }

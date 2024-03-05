@@ -7,10 +7,11 @@ namespace Customers.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase) : ControllerBase
+public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase, IDeleteCustomerUseCase deleteCustomerUseCase) : ControllerBase
 {
     private readonly ICreateCustomerUseCase _createCustomerUseCase = createCustomerUseCase;
     private readonly IGetCustomerByDocumentUseCase _getCustomerByDocumentUseCase = getCustomerByDocumentUseCase;
+    private readonly IDeleteCustomerUseCase _deleteCustomerUseCase = deleteCustomerUseCase;
 
     [HttpGet]
     public IActionResult GetCustomer([FromQuery] string document)
@@ -26,5 +27,12 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
         var id = _createCustomerUseCase.Execute(dto);
         Response.Headers.Location = $"/customers/{id}";
         return new ObjectResult(id.ToString()){StatusCode = (int)HttpStatusCode.Created};
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteCustomer([FromBody] CustomerDTO dto)
+    {
+        _deleteCustomerUseCase.Execute(dto);
+        return NoContent();
     }
 }

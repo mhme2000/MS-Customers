@@ -11,7 +11,7 @@ public class CreateCustomerUseCase(ICustomersRepository customersRepository) : I
 
     public Guid Execute(CustomerDTO dto)
     {
-        var customer = new Customer(dto.Document, dto.Email, dto.Name);
+        var customer = new Customer(dto.Document, dto.Email, dto.Name, dto.Address, dto.Phone);
         var id = _customersRepository.Create(customer);
         return id;
     }

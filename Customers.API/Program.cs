@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<ICreateCustomerUseCase, CreateCustomerUseCase>();
 builder.Services.AddScoped<IGetCustomerByDocumentUseCase, GetCustomerByDocumentUseCase>();
+builder.Services.AddScoped<IDeleteCustomerUseCase, DeleteCustomerUseCase>();
 builder.Services.AddDbContext<CustomersContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

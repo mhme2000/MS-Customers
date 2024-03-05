@@ -10,4 +10,6 @@ public class CustomerDTO
     public string Document { get; set; } = null!;
     [Required]
     public string Name { get; set; } = null!;
+    public string? Phone { get; set; }
+    public string? Address { get; set; }
 }

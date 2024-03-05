@@ -1,7 +1,6 @@
 ﻿using Customers.Domain.Entities;
 using Customers.Domain.Interfaces;
 using Customers.Infrastructure.Contexts;
-using Microsoft.EntityFrameworkCore;
 
 namespace Customers.Infrastructure.Repositories;
 
@@ -18,6 +17,12 @@ public class CustomersRepository(CustomersContext context) : ICustomersRepositor
 
     public Customer? GetByDocument(string document)
     {
-        return _context.Customer.AsNoTracking().FirstOrDefault(t => t.Document == document);
+        return _context.Customer.FirstOrDefault(t => t.Document == document);
+    }
+
+    public void Update(Customer customer)
+    {
+        _context.Customer.Update(customer);
+        _context.SaveChanges();
     }
 }
