@@ -17,7 +17,7 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
     public IActionResult GetCustomer([FromQuery] string document)
     {
         var customer = _getCustomerByDocumentUseCase.Execute(document);
-        if (customer == null) return NotFound();
+        if (customer == null) return NotFound("Customer not found.");
         return Ok(customer);
     }
 
@@ -25,6 +25,7 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
     public IActionResult CreateCustomer([FromBody] CustomerDTO dto)
     {
         var id = _createCustomerUseCase.Execute(dto);
+        if (id == null) return BadRequest("Customer already exists.");
         Response.Headers.Location = $"/customers/{id}";
         return new ObjectResult(id.ToString()){StatusCode = (int)HttpStatusCode.Created};
     }
@@ -32,7 +33,8 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
     [HttpDelete]
     public IActionResult DeleteCustomer([FromBody] CustomerDTO dto)
     {
-        _deleteCustomerUseCase.Execute(dto);
+        var result = _deleteCustomerUseCase.Execute(dto);
+        if (result == null) return NotFound("Customer not found.");
         return NoContent();
     }
 }

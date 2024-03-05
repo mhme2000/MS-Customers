@@ -9,9 +9,10 @@ public class CreateCustomerUseCase(ICustomersRepository customersRepository) : I
 {
     private readonly ICustomersRepository _customersRepository = customersRepository;
 
-    public Guid Execute(CustomerDTO dto)
+    public Guid? Execute(CustomerDTO dto)
     {
         var customer = new Customer(dto.Document, dto.Email, dto.Name, dto.Address, dto.Phone);
+        if (_customersRepository.GetByDocument(dto.Document) == null) return null;
         var id = _customersRepository.Create(customer);
         return id;
     }

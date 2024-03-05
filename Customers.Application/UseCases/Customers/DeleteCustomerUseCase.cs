@@ -12,11 +12,13 @@ public class DeleteCustomerUseCase(ICustomersRepository customersRepository) : I
     {
         var customer = _customersRepository.GetByDocument(dto.Document);
         if (customer == null) return null;
+        if (customer.Name != dto.Name || customer.Document != dto.Document || customer.Email != dto.Email) return null;
         customer.Email = "xxxx@xxxxx.com";
         customer.Document = "xxxxxxxxxxx";
         customer.Address = null;
         customer.Phone = null;
         customer.IsDeleted = true;
+        customer.AnonymizationDate = DateTime.Now;
         _customersRepository.Update(customer);
         return customer;
     }

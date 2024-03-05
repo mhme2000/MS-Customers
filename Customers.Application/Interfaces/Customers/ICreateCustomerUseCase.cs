@@ -2,6 +2,6 @@
 
 namespace Customers.Application.Interfaces.Customers;
 
-public interface ICreateCustomerUseCase : IUseCase<Guid, CustomerDTO>
+public interface ICreateCustomerUseCase : IUseCase<Guid?, CustomerDTO>
 {
 }
