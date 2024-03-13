@@ -45,4 +45,10 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
         if (result == null) return NotFound("Customer not found.");
         return NoContent();
     }
+
+    [HttpGet("health")]
+    public IActionResult Health()
+    {
+        return Ok(DateTime.Now);
+    }
 }
