@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICustomersRepository, CustomersRepository>();
 builder.Services.AddScoped<ICreateCustomerUseCase, CreateCustomerUseCase>();
 builder.Services.AddScoped<IGetCustomerByDocumentUseCase, GetCustomerByDocumentUseCase>();
+builder.Services.AddScoped<IGetCustomersUseCase, GetCustomersUseCase>();
 builder.Services.AddScoped<IDeleteCustomerUseCase, DeleteCustomerUseCase>();
 builder.Services.AddDbContext<CustomersContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -24,7 +25,6 @@ using (var scope = app.Services.CreateScope())
 }
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
