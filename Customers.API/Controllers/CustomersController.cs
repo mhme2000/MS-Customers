@@ -14,7 +14,7 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
     private readonly IGetCustomersUseCase _getCustomersUseCase = getCustomersUseCase;
     private readonly IDeleteCustomerUseCase _deleteCustomerUseCase = deleteCustomerUseCase;
 
-    [HttpGet]
+    [HttpGet("get-all")]
     public IActionResult GetCustomers()
     {
         var customers = _getCustomersUseCase.Execute(new object { });
