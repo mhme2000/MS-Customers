@@ -7,10 +7,11 @@ namespace Customers.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase, IGetCustomersUseCase getCustomersUseCase, IDeleteCustomerUseCase deleteCustomerUseCase) : ControllerBase
+public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, IGetCustomerByDocumentUseCase getCustomerByDocumentUseCase, IGetCustomersUseCase getCustomersUseCase, IGetCustomerByCustomerIdUseCase getCustomerByCustomerIdUseCase, IDeleteCustomerUseCase deleteCustomerUseCase) : ControllerBase
 {
     private readonly ICreateCustomerUseCase _createCustomerUseCase = createCustomerUseCase;
     private readonly IGetCustomerByDocumentUseCase _getCustomerByDocumentUseCase = getCustomerByDocumentUseCase;
+    private readonly IGetCustomerByCustomerIdUseCase _getCustomerByCustomerIdUseCase = getCustomerByCustomerIdUseCase;
     private readonly IGetCustomersUseCase _getCustomersUseCase = getCustomersUseCase;
     private readonly IDeleteCustomerUseCase _deleteCustomerUseCase = deleteCustomerUseCase;
 
@@ -25,6 +26,14 @@ public class CustomersController(ICreateCustomerUseCase createCustomerUseCase, I
     public IActionResult GetCustomer([FromQuery] string document)
     {
         var customer = _getCustomerByDocumentUseCase.Execute(document);
+        if (customer == null) return NotFound("Customer not found.");
+        return Ok(customer);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetCustomerByCustomerId([FromRoute] Guid id)
+    {
+        var customer = _getCustomerByCustomerIdUseCase.Execute(id);
         if (customer == null) return NotFound("Customer not found.");
         return Ok(customer);
     }

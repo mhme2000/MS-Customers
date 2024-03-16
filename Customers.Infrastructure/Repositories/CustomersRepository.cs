@@ -20,6 +20,11 @@ public class CustomersRepository(CustomersContext context) : ICustomersRepositor
         return _context.Customer.FirstOrDefault(t => t.Document == document);
     }
 
+    public Customer? GetById(Guid id)
+    {
+        return _context.Customer.FirstOrDefault(t => t.Id == id);
+    }
+
     public IEnumerable<Customer> GetAll()
     {
         return _context.Customer.AsEnumerable();
